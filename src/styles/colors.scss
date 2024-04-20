@@ -1,0 +1,29 @@
+$colors: (
+    black: #111,
+    white: #fff,
+    gray: #797979,
+    light-gray: #f5f5f5,
+    dark-gray: #444444,
+    secondary: #ff7b00,
+    error: #ff4a4a,
+    success: #00b894,
+);
+
+:root {
+    @each $color-name, $value in $colors {
+        --#{$color-name}: #{$value};
+    }
+}
+
+@each $kind in ("fg", "bg") {
+    @each $color-name, $value in $colors {
+        .#{$kind}-#{$color-name} {
+            #{$kind}: var(--#{$color-name});
+        }
+    }
+}
+
+html {
+    color: var(--black);
+    background-color: var(--white);
+}

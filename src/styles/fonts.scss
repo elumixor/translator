@@ -1,0 +1,28 @@
+$sizes: (
+    "normal": 1rem,
+    "small": 0.9rem,
+    "smaller": 0.8rem,
+    "big": 1.2rem,
+    "bigger": 1.4rem,
+    "huge": 1.6rem,
+);
+
+:root {
+    font-family: "Roboto", sans-serif;
+
+    @each $size, $value in $sizes {
+        --text-#{$size}: #{$value};
+    }
+}
+
+@each $align in ("center", "right", "left", "justify") {
+    .text-#{$align} {
+        text-align: $align;
+    }
+}
+
+@each $size, $value in $sizes {
+    .text-#{$size} {
+        font-size: $value;
+    }
+}

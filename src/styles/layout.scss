@@ -1,0 +1,49 @@
+:root {
+    --app-height: 100%;
+    --padding: 1rem;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.full-page {
+    height: var(--app-height);
+}
+
+.full-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.flex {
+    display: flex;
+
+    @each $direction in ("column", "row") {
+        &-#{$direction} {
+            flex-direction: $direction;
+        }
+    }
+
+    @each $justify in ("center", "start", "end") {
+        &-#{$justify} {
+            justify-content: $justify;
+        }
+    }
+
+    &-gap {
+        gap: 1rem;
+
+        @for $i from 1 through 10 {
+            &-#{$i} {
+                gap: #{$i}rem;
+            }
+        }
+    }
+}
