@@ -1,5 +1,5 @@
 {
-    "name": "angular-boilerplate",
+    "name": "translator",
     "version": "0.0.0",
     "scripts": {
         "ng": "ng",
@@ -13,7 +13,7 @@
         "test": "jest --verbose --passWithNoTests",
         "test:coverage": "jest --coverage --passWithNoTests",
         "test:watch": "jest --watch",
-        "serve:ssr": "node dist/angular-boilerplate/server/server.mjs"
+        "serve:ssr": "node dist/translator/server/server.mjs"
     },
     "private": true,
     "dependencies": {
