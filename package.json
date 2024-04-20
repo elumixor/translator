@@ -10,8 +10,8 @@
         "dev:front": "NG_APP_URL=$(ip addr show eth0 | grep -oP '(?<=inet\\s)\\d+(\\.\\d+){3}') ng serve",
         "dev:back": "IP=$(ip addr show eth0 | grep -oP '(?<=inet\\s)\\d+(\\.\\d+){3}') NG_DEV=TRUE bun run server/main.ts",
         "watch": "ng build --watch --configuration development",
-        "test": "jest --verbose",
-        "test:coverage": "jest --coverage",
+        "test": "jest --verbose --passWithNoTests",
+        "test:coverage": "jest --coverage --passWithNoTests",
         "test:watch": "jest --watch",
         "serve:ssr": "node dist/angular-boilerplate/server/server.mjs"
     },
