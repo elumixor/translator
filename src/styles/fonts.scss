@@ -15,7 +15,7 @@ $sizes: (
     }
 }
 
-@each $align in ("center", "right", "left", "justify") {
+@each $align in (center, right, left, justify) {
     .text-#{$align} {
         text-align: $align;
     }
@@ -25,4 +25,16 @@ $sizes: (
     .text-#{$size} {
         font-size: $value;
     }
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.underline {
+    text-decoration: underline;
 }

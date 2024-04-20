@@ -11,14 +11,16 @@ $colors: (
 
 :root {
     @each $color-name, $value in $colors {
-        --#{$color-name}: #{$value};
+        --#{"" + $color-name}: #{$value};
     }
 }
 
 @each $kind in ("fg", "bg") {
+    $property: if($kind == "fg", "color", "background-color");
+
     @each $color-name, $value in $colors {
-        .#{$kind}-#{$color-name} {
-            #{$kind}: var(--#{$color-name});
+        .#{$kind}-#{"" + $color-name} {
+            #{$property}: var(--#{$color-name});
         }
     }
 }
