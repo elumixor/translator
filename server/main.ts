@@ -1,15 +1,16 @@
 import { yellow } from "@elumixor/frontils";
 import { Api } from "./api";
 import { Server } from "./server";
+import { program } from "commander";
 
-// Create our server
-const server = new Server({ port: 4201 });
+async function run(...args: Parameters<(typeof Api)["from"]>) {
+    // Create our server
+    const server = new Server({ port: 4000 });
 
-// Create a handler and register it
-const handler = new Api();
-server.registerConnections(handler);
+    // Create a handler and register it
+    const handler = await Api.from(...args);
+    server.registerConnections(handler);
 
-void (async () => {
     // Include angular stuff, but not in dev mode
     if (!process.env["NG_DEV"]) {
         const { includeAngular } = await import("./include-angular");
@@ -21,4 +22,13 @@ void (async () => {
 
     // Start the server
     server.start();
-})();
+}
+
+program
+    .argument("<path>", "path to the source translation file. Example: src/locale/messages.xlf")
+    .option("-t, --token <string>", "DeepL API token")
+    .requiredOption("-l, --languages <codes...>", "languages to check. Example: en,es,fr")
+    .option("-f, --file-token <string>", "DeepL API token file")
+    .action(run);
+
+program.parse();

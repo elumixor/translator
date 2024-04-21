@@ -1,0 +1,55 @@
+.grow-wrap {
+    // easy way to plop the elements on top of each other and have them both sized based on the tallest one's height
+    display: grid;
+
+    margin-top: 2.5px;
+    margin-bottom: 2.5px;
+
+    &::after {
+        // Note the weird space! Needed to prevent jumpy behavior
+        content: attr(data-replicated-value) " ";
+        white-space: pre-wrap;
+        visibility: hidden;
+    }
+}
+
+textarea {
+    resize: none;
+    overflow: hidden;
+    text-align: unset;
+
+    &::placeholder {
+        color: var(--black);
+        opacity: 0.5;
+        font-style: italic;
+    }
+}
+
+// Identical styling required!!
+.grow-wrap > textarea,
+.grow-wrap::after {
+    font: inherit;
+    color: unset;
+
+    // Place on top of each other
+    grid-area: 1 / 1 / 2 / 2;
+
+    background-color: transparent;
+    border: none;
+    outline: none;
+    overflow-wrap: anywhere;
+
+    font-size: 1em;
+    transition: all 0.2s ease-in-out;
+}
+
+label {
+    pointer-events: all;
+    display: block;
+    position: relative;
+    transition: all var(--duration-action);
+
+    &.disabled {
+        pointer-events: none;
+    }
+}

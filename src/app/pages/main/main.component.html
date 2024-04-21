@@ -1,0 +1,39 @@
+<table>
+    <tbody>
+        <tr class="header">
+            <th width="30"></th>
+            <th width="200">Source</th>
+            @for (lang of data.codes(); track $index) {
+            <th width="200" class="lang-1">{{lang}}</th>
+            <th width="30" class="lang-2"></th>
+            }
+        </tr>
+        @for (line of data.statusMap(); track $index) {
+        <tr>
+            <td class="text-center index" [title]="line.id">
+                <div>{{$index + 1}}</div>
+                <div>...</div>
+            </td>
+            <td class="translation source">
+                <app-editable [text]="line.source" (textChange)="data.update(line.id, 'source', $event)" />
+            </td>
+
+            @for (lang of data.codes(); track $index) {
+            <td class="translation target" [class.approved]="line.translations[lang].approval === 'approved'">
+                <app-editable [text]="line.translations[lang].translation"
+                              (textChange)="data.update(line.id, lang, $event)" placeholder="Not translated yet" />
+                <div class="translate-icon" (click)="data.autoTranslate(line.id, lang)">🌐</div>
+            </td>
+            @if (!line.translations[lang].translation) {
+            <td></td>
+            } @else {
+            <td class="approve" (click)="data.approve(line.id, lang, line.translations[lang].approval)"
+                [class.approved]="line.translations[lang].approval === 'approved'">
+                ✔️
+            </td>
+            }
+            }
+        </tr>
+        }
+    </tbody>
+</table>

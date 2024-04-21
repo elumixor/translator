@@ -53,10 +53,12 @@ export class Server {
                             for (const [key, value] of Object.entries(params))
                                 substituted = substituted.replace(`:${String(key)}`, String(value));
 
-                            // eslint-disable-next-line no-console
-                            console.log(cyan(`${date}: API request: ${substituted}`));
-                            // eslint-disable-next-line no-console
-                            console.dir(req.body, { depth: null, colors: true });
+                            if (process.env["NG_DEV"]) {
+                                // eslint-disable-next-line no-console
+                                console.log(cyan(`${date}: API request: ${substituted}`));
+                                // eslint-disable-next-line no-console
+                                console.dir(req.body, { depth: null, colors: true });
+                            }
 
                             res.type("application/json");
 
@@ -69,10 +71,13 @@ export class Server {
                             const p = { ...req.body, ...req.params } as Record<string, unknown>;
 
                             const result = (await handler(p)) ?? {};
-                            // eslint-disable-next-line no-console
-                            console.log(magenta(`${date}: API response ${substituted}`));
-                            // eslint-disable-next-line no-console
-                            console.dir(result, { depth: null, colors: true });
+
+                            if (process.env["NG_DEV"]) {
+                                // eslint-disable-next-line no-console
+                                console.log(magenta(`${date}: API response ${substituted}`));
+                                // eslint-disable-next-line no-console
+                                console.dir(result, { depth: null, colors: true });
+                            }
                             res.status(200).send(result);
                         } catch (e) {
                             const message = (e as { message?: string }).message ?? "unknown error";

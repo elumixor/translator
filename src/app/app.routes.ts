@@ -1,14 +1,14 @@
 import type { Routes } from "@angular/router";
-import { ExamplePageComponent } from "@pages";
+import { MainComponent } from "@pages";
 
 export const routes: Routes = [
     {
-        path: "example",
-        component: ExamplePageComponent,
+        path: "",
+        component: MainComponent,
     },
     {
         path: "**",
-        redirectTo: "example",
+        redirectTo: "",
         pathMatch: "full",
     },
 ];

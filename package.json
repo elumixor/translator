@@ -1,12 +1,16 @@
 {
-    "name": "translator",
-    "version": "0.0.0",
+    "name": "@elumixor/translator",
+    "version": "0.0.1",
+    "description": "Translator package for angular projects",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
-        "build": "ng build",
+        "build": "concurrently \"npm run build:front\" \"npm run build:cli\"",
+        "build:cli": "tsup cli --config tsup.config.ts",
+        "build:front": "ng build",
         "lint": "ng lint",
         "dev": "concurrently \"npm run dev:front\" \"npm run dev:back\"",
+        "dev:cli": "npm run build:cli && ./bin/main.mjs",
         "dev:front": "NG_APP_URL=$(ip addr show eth0 | grep -oP '(?<=inet\\s)\\d+(\\.\\d+){3}') ng serve",
         "dev:back": "IP=$(ip addr show eth0 | grep -oP '(?<=inet\\s)\\d+(\\.\\d+){3}') NG_DEV=TRUE bun run server/main.ts",
         "watch": "ng build --watch --configuration development",
@@ -15,7 +19,13 @@
         "test:watch": "jest --watch",
         "serve:ssr": "node dist/translator/server/server.mjs"
     },
-    "private": true,
+    "bin": {
+        "translator": "bin/main.mjs"
+    },
+    "files": [
+        "bin",
+        "dist"
+    ],
     "dependencies": {
         "@angular/animations": "^17.1.0",
         "@angular/common": "^17.1.0",
@@ -29,14 +39,19 @@
         "@angular/ssr": "^17.1.0",
         "@elumixor/frontils": "^1.1.0",
         "@types/cors": "^2.8.17",
+        "chalk": "^5.3.0",
+        "commander": "^12.0.0",
         "cors": "^2.8.5",
+        "deepl-node": "^1.13.0",
         "eslint-config-prettier": "^9.0.0",
         "eslint-plugin-import": "^2.28.1",
         "eslint-plugin-prefer-arrow": "^1.2.3",
         "eslint-plugin-prettier": "^5.0.1",
         "express": "^4.18.2",
+        "inquirer": "^9.2.19",
         "rxjs": "~7.8.0",
         "tslib": "^2.3.0",
+        "xml-formatter": "^3.6.2",
         "zone.js": "~0.14.3"
     },
     "devDependencies": {
@@ -51,7 +66,7 @@
         "@ngx-env/builder": "^17.3.0",
         "@types/express": "^4.17.17",
         "@types/jest": "^29.5.12",
-        "@types/node": "^18.18.0",
+        "@types/node": "^20.12.7",
         "@typescript-eslint/eslint-plugin": "6.18.0",
         "@typescript-eslint/parser": "6.18.0",
         "concurrently": "^8.2.2",
@@ -59,6 +74,7 @@
         "jest": "^29.7.0",
         "jest-preset-angular": "^14.0.0",
         "ts-jest": "^29.1.2",
+        "tsup": "^8.0.2",
         "typescript": "~5.3.2"
     }
 }
