@@ -9,7 +9,7 @@ import { lastValueFrom } from "rxjs";
 export class NetworkService {
     private readonly http = inject(HttpClient);
     private readonly isDev = isDevMode();
-    private readonly url = this.isDev ? `http://${import.meta.env.NG_APP_URL}:4000` : "";
+    private readonly url = this.isDev ? `http://${import.meta.env.NG_APP_URL}:3300` : "";
 
     async post<T = unknown>(path: string, params?: Record<string, unknown>) {
         // eslint-disable-next-line no-console

@@ -9,7 +9,7 @@ export class Server {
     readonly port;
     readonly server = express();
 
-    constructor({ port = 4201 }: { port?: number } = {}) {
+    constructor({ port = 3300 }: { port?: number } = {}) {
         this.port = process.env["PORT"] ?? port;
         this.server.use(express.json());
 

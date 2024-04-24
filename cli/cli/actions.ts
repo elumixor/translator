@@ -100,7 +100,7 @@ export async function autoTranslate(path: string, { languages, fileToken, token 
     return { source, targetLangs, statusMap };
 }
 
-export async function launchEditor(path: string, options: Options) {
+export async function launchEditor(path: string, options: Options & { port: string }) {
     const { autoTranslate: at } = options;
     if (at) await autoTranslate(path, options);
     const { targetLangs } = actualize(path, options);
@@ -109,6 +109,7 @@ export async function launchEditor(path: string, options: Options) {
         path,
         targetLangs.map((l) => l.code),
         getToken(options.token, options.fileToken),
+        options.port,
     );
 }
 

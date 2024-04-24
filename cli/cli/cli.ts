@@ -26,7 +26,12 @@ withCommon(program.command("auto-translate").description("Automatically translat
     autoTranslate as unknown as () => Promise<void>,
 );
 
-withCommon(program.command("edit").description("Launches the editor to approve translations")).action(launchEditor);
+withCommon(
+    program
+        .command("edit")
+        .option("-p, --port <number>", "port to run the editor on. Default: 3300")
+        .description("Launches the editor to approve translations"),
+).action(launchEditor);
 
 export function run() {
     void handleErrors(() => void program.parse());
